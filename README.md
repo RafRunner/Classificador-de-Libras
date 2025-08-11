@@ -69,7 +69,7 @@ Rode a aplicação:
 python app.py
 ```
 
-Acesse: [http://localhost:5000](http://localhost:5000)
+Acesse: [http://localhost:8080](http://localhost:8080)
 
 ## 🌐 API HTTP
 
