@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+    <head>
+        <meta charset="utf-8" />
+        <title>Classificador de Libras</title>
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                text-align: center;
+                background-color: #f0f8ff;
+                margin: 0;
+                padding: 0;
+            }
+            .container {
+                max-width: 600px;
+                margin: 30px auto;
+                background-color: #ffffff;
+                padding: 30px;
+                border-radius: 12px;
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            }
+            h1 {
+                margin-bottom: 20px;
+                color: #004080;
+            }
+            img.banner {
+                width: 100%;
+                border-bottom: 1px solid #ccc;
+                margin-bottom: 20px;
+                border-radius: 12px 12px 0 0;
+            }
+            input[type='file'] {
+                margin: 20px 0;
+            }
+            button {
+                background-color: #007bff;
+                color: white;
+                border: none;
+                padding: 10px 20px;
+                font-size: 16px;
+                border-radius: 8px;
+                cursor: pointer;
+            }
+            button:hover {
+                background-color: #0056b3;
+            }
+            .result {
+                margin-top: 20px;
+            }
+            .uploaded-img {
+                max-width: 300px;
+                margin-top: 10px;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <img
+                src="{{ url_for('static', filename='banner.jpeg') }}"
+                class="banner"
+                alt="LIBRAS Banner"
+            />
+
+            <h1>Classificador de Sinais de Libras</h1>
+
+            {% if error %}
+            <p style="color: red">{{ error }}</p>
+            {% endif %}
+
+            <form action="/predict" method="post" enctype="multipart/form-data">
+                <input type="file" name="file" accept="image/*" required />
+                <br />
+                <button type="submit">Enviar imagem</button>
+            </form>
+
+            {% if prediction %}
+            <div class="result">
+                <h2>Predição: {{ prediction }}</h2>
+                <img
+                    src="data:image/jpeg;base64,{{ img_data }}"
+                    class="uploaded-img"
+                    alt="Imagem Enviada"
+                />
+            </div>
+            {% endif %}
+        </div>
+    </body>
+</html>
